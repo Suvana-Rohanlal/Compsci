@@ -51,9 +51,9 @@ public class CloudData {
 				for(int x = 0; x < dimx; x++)
 					for(int y = 0; y < dimy; y++){
 						advection[t][x][y] = new Vector();
-						advection[t][x][y].x = sc.nextFloat();
-						advection[t][x][y].y = sc.nextFloat();
-						convection[t][x][y] = sc.nextFloat();
+						advection[t][x][y].x = Float.parseFloat(sc.next());
+						advection[t][x][y].y = Float.parseFloat(sc.next());
+						convection[t][x][y] = Float.parseFloat(sc.next());
 					}
 
 			classification = new int[dimt][dimx][dimy];
@@ -93,4 +93,6 @@ public class CloudData {
 				e.printStackTrace();
 		 }
 	}
+
+
 }

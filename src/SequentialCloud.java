@@ -9,7 +9,7 @@ public class SequentialCloud{
       static float[] advection;
       static float wind;
       static int num=0;
-      static float[] averageW;
+    //  static float[] averageW;
 
       public static void main(String[]args){
         Vector vector = new Vector();
@@ -27,7 +27,7 @@ public class SequentialCloud{
 
         convection = new float[totalWind];
         advection = new float[totalWind];
-        averageW = new float[windX*windY];
+      //  averageW = new float[windX*windY];
 
         System.out.println(time+" "+windX+" "+windY);
         String disp = average(time, windX, windY, totalWind, vector, cloud);
@@ -38,9 +38,10 @@ public class SequentialCloud{
           num++;
           if(num == (windX*windY)){
             num = 0;
-            System.out.println("\n");
+            System.out.print("\n");
           }
         }
+        sc.close();
       }
 
       public static String average(int time, int x, int y, int total, Vector vector, CloudData cloud){
@@ -51,18 +52,91 @@ public class SequentialCloud{
         int n = x*y;
         float nx=0;
         float ny=0;
+        int ncount=0;
         for(int i=0; i<time; i++){
-          ny=0;
-          nx=0;
           for(int j=0; j<x; j++){
             for(int k=0; k<y; k++){
+              ny=0;
+              nx=0;
+              ncount=0;
               ix = cloud.advection[i][j][k].x;
               iy = cloud.advection[i][j][k].y;
-              ny+=iy;
-              nx+=ix;
+              if(j==0){
+                if(k==0){
+                  ny=cloud.advection[i][j][k].y+cloud.advection[i][j+1][k].y+cloud.advection[i][j][k+1].y+cloud.advection[i][j+1][k+1].y;
+                  nx=cloud.advection[i][j][k].x+cloud.advection[i][j+1][k].x+cloud.advection[i][j][k+1].x+cloud.advection[i][j+1][k+1].x;
+
+                /*  ny = ny/4;
+                  nx = nx/4;*/
+                  ncount =4;
+                }
+                else if(k>0 && k<y-1){
+                  ny=cloud.advection[i][j][k].y+cloud.advection[i][j][k+1].y+cloud.advection[i][j+1][k].y+cloud.advection[i][j+1][k+1].y+cloud.advection[i][j+1][k-1].y+cloud.advection[i][j][k-1].y;
+                  nx=cloud.advection[i][j][k].x+cloud.advection[i][j][k+1].x+cloud.advection[i][j+1][k].x+cloud.advection[i][j+1][k+1].x+cloud.advection[i][j+1][k-1].x+cloud.advection[i][j][k-1].x;
+                /*  ny = ny/6;
+                  nx = nx/6;*/
+                  ncount =6;
+                }
+                else{
+                  ny=cloud.advection[i][j][k].y+cloud.advection[i][j+1][k].y+cloud.advection[i][j][k-1].y+cloud.advection[i][j+1][k-1].y;
+                  nx=cloud.advection[i][j][k].x+cloud.advection[i][j+1][k].x+cloud.advection[i][j][k-1].x+cloud.advection[i][j+1][k-1].x;
+                /*  ny = ny/4;
+                  nx = nx/4;*/
+                  ncount =4;
+                }
+              }
+              else if(j>0 && j<y-1){
+                if(k==0){
+                  ny=cloud.advection[i][j][k].y+cloud.advection[i][j+1][k].y+cloud.advection[i][j][k+1].y+cloud.advection[i][j+1][k+1].y+cloud.advection[i][j-1][k+1].y+cloud.advection[i][j-1][k].y;
+                  nx=cloud.advection[i][j][k].x+cloud.advection[i][j+1][k].x+cloud.advection[i][j][k+1].x+cloud.advection[i][j+1][k+1].x+cloud.advection[i][j-1][k+1].x+cloud.advection[i][j-1][k].x;
+                /*  ny = ny/6;
+                  nx = nx/6;*/
+                  ncount =6;
+                }
+                else if(k>0 && k<y-1){
+                  ny=cloud.advection[i][j][k].y+cloud.advection[i][j+1][k].y+cloud.advection[i][j][k+1].y+cloud.advection[i][j+1][k+1].y;
+                  ny = ny +cloud.advection[i][j+1][k-1].y+cloud.advection[i][j][k-1].y+cloud.advection[i][j-1][k-1].y+cloud.advection[i][j-1][k].y+cloud.advection[i][j-1][k+1].y;
+                  nx=cloud.advection[i][j][k].x+cloud.advection[i][j+1][k].x+cloud.advection[i][j][k+1].x+cloud.advection[i][j+1][k+1].x+cloud.advection[i][j+1][k-1].x+cloud.advection[i][j][k-1].x;
+                  nx = nx +cloud.advection[i][j-1][k-1].x+cloud.advection[i][j-1][k].x+cloud.advection[i][j-1][k+1].x;
+                /*  ny = ny/9;
+                  nx = nx/9;*/
+                  ncount = 9;
+                }
+                else{
+                  ny=cloud.advection[i][j][k].y+cloud.advection[i][j+1][k].y+cloud.advection[i][j][k-1].y+cloud.advection[i][j+1][k-1].y+cloud.advection[i][j-1][k-1].y+cloud.advection[i][j-1][k].y;
+                  nx=cloud.advection[i][j][k].x+cloud.advection[i][j+1][k].x+cloud.advection[i][j][k-1].x+cloud.advection[i][+1][k-1].x+cloud.advection[i][j-1][k-1].x+cloud.advection[i][j-1][k].x;
+                /*  ny = ny/6;
+                  nx = nx/6;*/
+                  ncount =6;
+                }
+              }
+              else{
+                if(k==0){
+                  ny=cloud.advection[i][j][k].y+cloud.advection[i][j-1][k].y+cloud.advection[i][j][k+1].y+cloud.advection[i][j-1][k+1].y;
+                  nx=cloud.advection[i][j][k].x+cloud.advection[i][j-1][k].x+cloud.advection[i][j][k+1].x+cloud.advection[i][j-1][k+1].x;
+                /*  ny = ny/4;
+                  nx = nx/4;*/
+                  ncount =4;
+                }
+                else if(k>0 && k<y-1){
+                  ny=cloud.advection[i][j][k].y+cloud.advection[i][j-1][k].y+cloud.advection[i][j][k+1].y+cloud.advection[i][j-1][k+1].y+cloud.advection[i][j-1][k-1].y+cloud.advection[i][j][k-1].y;
+                  nx=cloud.advection[i][j][k].x+cloud.advection[i][j-1][k].x+cloud.advection[i][j][k+1].x+cloud.advection[i][j-1][k+1].x+cloud.advection[i][j-1][k-1].x+cloud.advection[i][j][k-1].x;
+                /*  ny = ny/6;
+                  nx = nx/6;*/
+                  ncount = 6;
+                }
+                else{
+                  ny=cloud.advection[i][j][k].y+cloud.advection[i][j-1][k].y+cloud.advection[i][j][k-1].y+cloud.advection[i][j-1][k-1].y;
+                  nx=cloud.advection[i][j][k].x+cloud.advection[i][j-1][k].x+cloud.advection[i][j][k-1].x+cloud.advection[i][j-1][k-1].x;
+                /*  ny = ny/4;
+                  nx = nx/4;*/
+                  ncount =4;
+                }
+              }
+
               sumX += ix;
               sumY += iy;
-              wind = vector.length(ix,iy);
+              wind = vector.length(nx,ny)/ncount;
 
               if(count<total){
                 advection[count] = wind;
@@ -81,14 +155,14 @@ public class SequentialCloud{
 
       public static void classification(float w, float u){
         float abs = Math.abs(u);
-        if(abs>w){
-          System.out.println("0");
+       if(abs>w){
+          System.out.print("0");
         }
         else if((w>0.2) && (w>=abs)){
-          System.out.println("1");
+          System.out.print("1");
         }
         else{
-          System.out.println("2");
+          System.out.print("2");
         }
       }
 }
