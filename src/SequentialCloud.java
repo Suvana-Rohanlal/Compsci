@@ -9,11 +9,13 @@ public class SequentialCloud{
       static float[] advection;
       static float wind;
       static int num=0;
+      static long start = 0;
     //  static float[] averageW;
 
-      public static void main(String[]args){
+  /* public static void main(String[]args){
         Vector vector = new Vector();
         CloudData cloud = new CloudData();
+
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter the name of the file");
@@ -30,9 +32,14 @@ public class SequentialCloud{
       //  averageW = new float[windX*windY];
 
         System.out.println(time+" "+windX+" "+windY);
+
         String disp = average(time, windX, windY, totalWind, vector, cloud);
+
         System.out.println(disp);
 
+        //System.out.println("Time took to run average is "+avgT+" seconds.");
+
+        //tick();
         for(int c=0; c<totalWind; c++){
           classification(advection[c], convection[c]);
           num++;
@@ -41,10 +48,14 @@ public class SequentialCloud{
             System.out.print("\n");
           }
         }
+
+        //System.out.println("Time took to run classification is "+classT+" seconds.");
         sc.close();
-      }
+      }*/
 
       public static String average(int time, int x, int y, int total, Vector vector, CloudData cloud){
+        convection = new float[total];
+        advection = new float[total];
         String average="";
         int count =0;
         float ix=0;
@@ -53,14 +64,18 @@ public class SequentialCloud{
         float nx=0;
         float ny=0;
         int ncount=0;
+        //System.out.println("loop 1");
         for(int i=0; i<time; i++){
+        //  System.out.println("loop 2");
           for(int j=0; j<x; j++){
+          //  System.out.println("loop 3");
             for(int k=0; k<y; k++){
               ny=0;
               nx=0;
               ncount=0;
               ix = cloud.advection[i][j][k].x;
               iy = cloud.advection[i][j][k].y;
+
               if(j==0){
                 if(k==0){
                   ny=cloud.advection[i][j][k].y+cloud.advection[i][j+1][k].y+cloud.advection[i][j][k+1].y+cloud.advection[i][j+1][k+1].y;
@@ -137,12 +152,13 @@ public class SequentialCloud{
               sumX += ix;
               sumY += iy;
               wind = vector.length(nx,ny)/ncount;
-
+            //  System.out.println(ncount+" ");
               if(count<total){
                 advection[count] = wind;
                 convection[count] = cloud.convection[i][j][k];
                 count++;
               }
+              //System.out.println("Out of Y");
             }
           }
         //  averageW[i] =
@@ -153,7 +169,16 @@ public class SequentialCloud{
         return average;
       }
 
+      public float[] getAdv(){
+        return advection;
+      }
+
+      public float[] getCon(){
+        return convection;
+      }
+
       public static void classification(float w, float u){
+
         float abs = Math.abs(u);
        if(abs>w){
           System.out.print("0");
@@ -165,4 +190,8 @@ public class SequentialCloud{
           System.out.print("2");
         }
       }
+
+
+
+
 }

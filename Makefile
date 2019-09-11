@@ -6,12 +6,12 @@ bin/%.class: src/%.java
 .java.class:
 	$(JAVAC) $<
 
-classes: bin/Vector.class bin/CloudData.class bin/SequentialCloud.class
+classes: bin/Vector.class bin/CloudData.class bin/Time.class bin/ParallelCloud.class bin/SequentialCloud.class bin/TestCloud.class
 
 default: $(CLASSES)
 
 run:
-	java -cp bin/ SequentialCloud
+	java -cp bin/ TestCloud
 
 clean:
 	rm bin/*.class
