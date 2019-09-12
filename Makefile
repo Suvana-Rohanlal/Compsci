@@ -6,7 +6,7 @@ bin/%.class: src/%.java
 .java.class:
 	$(JAVAC) $<
 
-classes: bin/Vector.class bin/CloudData.class bin/Time.class bin/ParallelCloud.class bin/SequentialCloud.class bin/TestCloud.class
+classes: bin/Vector.class bin/CloudData.class bin/Time.class bin/ParallelCloud.class bin/ParallelClassification.class bin/SequentialCloud.class bin/TestCloud.class
 
 default: $(CLASSES)
 

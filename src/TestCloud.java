@@ -8,7 +8,7 @@ public class TestCloud{
   static float sumX, sumY, averageX, averageY = 0;
   static float[] convection;
   static float[] advection;
-  static float[] Parallel;
+
   static float wind;
   static int num=0;
   static long start = 0;
@@ -31,14 +31,15 @@ public class TestCloud{
 
     convection = new float[totalWind];
     advection = new float[totalWind];
-    Parallel = new float[2];
 
-    System.out.println("Sequential");
+    System.out.println("\nSequential");
     System.out.println(time+" "+windX+" "+windY);
     tick();
     String disp = seq.average(time, windX, windY, totalWind, vector, cloud);
     System.out.println(disp);
-    System.out.println("Average = "+tock()+" seconds");
+    System.out.println("Sequential Average Time= "+tock()+" seconds");
+
+    //tick();
     convection = seq.getCon();
     advection = seq.getAdv();
     for(int c=0; c<totalWind; c++){
@@ -49,22 +50,25 @@ public class TestCloud{
         System.out.print("\n");
       }
     }
+    float to = tock();
+    System.out.println("Sequential Classify Time = "+to+" seconds");
 
-    System.out.println("Parallel");
+    System.out.println("\nParallel");
     System.out.println(time+" "+windX+" "+windY);
-    //par.populate(cloud, time, windX, windY, totalWind);
+
     tick();
-  //  float[] arrX = par.getArrX();
-    //ParallelCloud cal = new ParallelCloud(arrX, 0, totalWind);
-    Parallel = Par(advection);
+
+    int tot = (int)totalWind;
+    float[] Parallel = Par(tot,cloud);
 
     float t = tock();
-  //  float[] arrY = par.getArrY();
-    //ParallelCloud calY = new ParallelCloud(arrY, 0, totalWind);
-    //float sumY = Par(arrY);
 
     System.out.println(Parallel[0]/totalWind+" "+Parallel[1]/totalWind);
-    System.out.println(t+" seconds");
+    System.out.println("Parallel Average Time = "+t+" seconds");
+    tick();
+    classify(tot, cloud, vector);
+    t = tock();
+    System.out.println("Parallel Classify Time = "+t+" seconds");
   }
 
   private static void tick(){
@@ -76,8 +80,11 @@ public class TestCloud{
   }
 
   static final ForkJoinPool fjPool = new ForkJoinPool();
-	static float Par(float[] arr){
-	  return fjPool.invoke(new ParallelCloud(arr,0,arr.length));
+	static float[] Par(int wind, CloudData cloud){
+	  return fjPool.invoke(new ParallelCloud(cloud,0,wind));
 	}
+  static void classify(int wind, CloudData cloud, Vector vector){
+    fjPool.invoke(new ParallelClassification(cloud,vector,0,wind));
+  }
 
 }

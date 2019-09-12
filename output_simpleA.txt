@@ -1,0 +1,100 @@
+java -cp bin/ TestCloud
+Please enter the name of the file
+
+Sequential
+3 2 2
+0.33333334 0.16666667
+Sequential Average Time= 0.009 seconds
+1111
+0000
+0000
+Sequential Classify Time = 0.013 seconds
+
+Parallel
+3 2 2
+0.33333334 0.16666667
+Parallel Average Time = 0.002 seconds
+1111
+0000
+0000
+Parallel Classify Time = 0.001 seconds
+java -cp bin/ TestCloud
+Please enter the name of the file
+
+Sequential
+3 2 2
+0.33333334 0.16666667
+Sequential Average Time= 0.009 seconds
+1111
+0000
+0000
+Sequential Classify Time = 0.014 seconds
+
+Parallel
+3 2 2
+0.33333334 0.16666667
+Parallel Average Time = 0.002 seconds
+1111
+0000
+0000
+Parallel Classify Time = 0.0 seconds
+java -cp bin/ TestCloud
+Please enter the name of the file
+
+Sequential
+3 2 2
+0.33333334 0.16666667
+Sequential Average Time= 0.009 seconds
+1111
+0000
+0000
+Sequential Classify Time = 0.015 seconds
+
+Parallel
+3 2 2
+0.33333334 0.16666667
+Parallel Average Time = 0.002 seconds
+1111
+0000
+0000
+Parallel Classify Time = 0.001 seconds
+java -cp bin/ TestCloud
+Please enter the name of the file
+
+Sequential
+3 2 2
+0.33333334 0.16666667
+Sequential Average Time= 0.008 seconds
+1111
+0000
+0000
+Sequential Classify Time = 0.014 seconds
+
+Parallel
+3 2 2
+0.33333334 0.16666667
+Parallel Average Time = 0.002 seconds
+1111
+0000
+0000
+Parallel Classify Time = 0.001 seconds
+java -cp bin/ TestCloud
+Please enter the name of the file
+
+Sequential
+3 2 2
+0.33333334 0.16666667
+Sequential Average Time= 0.009 seconds
+1111
+0000
+0000
+Sequential Classify Time = 0.014 seconds
+
+Parallel
+3 2 2
+0.33333334 0.16666667
+Parallel Average Time = 0.002 seconds
+1111
+0000
+0000
+Parallel Classify Time = 0.001 seconds
