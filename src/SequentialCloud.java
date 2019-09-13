@@ -130,10 +130,10 @@ public class SequentialCloud{
         System.out.print("0");
         }
         else if((w>0.2) && (w>=abs)){
-       System.out.print("1");
+        System.out.print("1");
         }
         else{
-         System.out.print("2");
+        System.out.print("2");
         }
       }
 
